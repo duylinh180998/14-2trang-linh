@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="icon"
+      href="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/275854716_1009516859998712_3360791562563963516_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=174925&_nc_ohc=Nd-x8LBVkfEAX-8j_3d&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfCE12FbrIzhS4MFFIpLnp91XXbAS27AcV3yTsAqHtNIHw&oe=640ADB19"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Gửi Em iu của anh❤</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="loader">
+        <div class="cardHover">
+          <div class="box-heart">
+            <div class="heart"></div>
+          </div>
+        </div>
+      </div>
+      <div class="music">
+        <!-- <audio class="audio" src="./media/dongxi-md.mp3" preload autoplay loop></audio>  -->
+        <audio class="audio" autoplay>
+          <source src="./media/ido.mp3" type="audio/mp3" /></audio>
+      </div>
+      <button><p>Nhấn vào đây đi Em iu🖤</p></button>
+      <div class="content">
+        <i class="fa-solid fa-xmark"></i>
+        <h1>Chúc mừng ngày Valentine!</h1>
+        <p>
+          "💗  Ngày Valentine thứ 2 được ở bên em iu. Thời gian bên em thật hạnh phúc, cuộc sống trở lên nhiều màu sắc hơn.
+          Vì thế, hãy thật chân trọng khoảng thời gian tươi đẹp bên nhau, đừng bận tâm về thế giới ngoài kia,
+          vì em chính là thế giới của anh. Yêu em nhất trên đời.💗 "
+        </p>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="vanilla-tilt.js"></script>
+  <script>
+    var musicDom = document.querySelector('.music');
+    // var bannerDom = document.querySelector('.banner');
+    var audioDom = document.querySelector('.audio');
+    // var videoDom = document.querySelector('.video');
+    // var swiperWrapDom = document.querySelector('.swiper-wrap');
+    // var playVideo = document.querySelector('.our-name');
+    var musicCloseDom = musicDom.querySelector('.music-close');
+    var curImgDom = document.getElementById('current-img');
+    if ( audioDom.readyState == 4) { // android会走此逻辑
+      // @todo
+      console.log('loaded');
+    } else { // iOS走此逻辑
+      audioDom.addEventListener('play', function () {
+        try {
+          musicCloseDom.classList.add('rotate');
+        } catch (error) {
+          // console.log('error', error);
+        }
+      }, false);
+      audioDom.addEventListener('canplaythrough', function () {
+        try {
+          // chrome浏览器没有也页面交互（点击，滚动）之前会报错误---Uncaught（in promise）DOMException：play（）
+          //处理方法设置浏览器autoplay-policy---https://blog.csdn.net/super_XYQ/article/details/83026792
+          var promise = audioDom.play();
+          if (promise !== undefined) {
+            promise.then(function () {
+              musicCloseDom.classList.add('rotate');
+            }).catch(function () {
+              musicCloseDom.classList.remove('rotate');
+            });
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+      }, false);
+      audioDom.load();
+    }
+
+    musicDom.addEventListener('click', function (event) {
+      if (!audioDom.paused) {
+        audioDom.pause();
+        musicCloseDom.classList.remove('rotate');
+      } else {
+        audioDom.play();
+        musicCloseDom.classList.add('rotate');
+      }
+
+      event.preventDefault();
+    }, false);
+    VanillaTilt.init(document.querySelector(".wrapper"), {
+      max: 25,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.25,
+      gyroscopeMinAngleX: -45,
+    });
+    var btn = document.querySelector("button");
+    var closeBtn = document.querySelector(".fa-xmark");
+    btn.addEventListener("click", () => {
+      document.querySelector(".wrapper").classList.add("active");
+      btn.style.display = "none";
+    });
+    closeBtn.addEventListener("click", () => {
+      document.querySelector(".wrapper").classList.remove("active");
+      btn.style.display = "block";
+    });
+  </script>
+</html>
